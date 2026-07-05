@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Lode Runner: The Legend Returns ‚Äî Fan Recreation</title>
+<title>Lode Runner: The Legend Returns &#8212; Fan Recreation</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <style>
   html,body{margin:0;padding:0;background:#000;height:100%;overflow:hidden;touch-action:none;overscroll-behavior:none}
@@ -23,7 +23,7 @@
 <script>
 'use strict';
 /* =====================================================================
-   LODE RUNNER: THE LEGEND RETURNS ‚Äî faithful fan recreation (1994 ‚Üí HTML5)
+   LODE RUNNER: THE LEGEND RETURNS \u2014 faithful fan recreation (1994 \u2192 HTML5)
    Personal-use homage. All art & audio synthesized from scratch.
    Spec: PROMPT.md (adjudicated defaults are final).
    ===================================================================== */
@@ -47,21 +47,21 @@ const TOOL_NONE=0,TOOL_SLIME=1,TOOL_SNARE=2,TOOL_JACK=3,TOOL_GAS=4,TOOL_PICK=5,T
 const TOOL_OF_ITEM={[I_SLIME]:TOOL_SLIME,[I_SNARE]:TOOL_SNARE,[I_JACK]:TOOL_JACK,[I_GAS]:TOOL_GAS,[I_PICK]:TOOL_PICK,[I_BOSS]:TOOL_BOSS};
 const ITEM_OF_TOOL={[TOOL_SLIME]:I_SLIME,[TOOL_SNARE]:I_SNARE,[TOOL_JACK]:I_JACK,[TOOL_GAS]:I_GAS,[TOOL_PICK]:I_PICK,[TOOL_BOSS]:I_BOSS};
 
-// tuning (¬ß = PROMPT.md)
+// tuning (\u00a7 = PROMPT.md)
 const CFG={
-  runSpeed:4.5,          // tiles/sec (¬ß4)
+  runSpeed:4.5,          // tiles/sec (\u00a74)
   ladderUp:4.5*0.85, ladderDownMul:1.3,
   fallSpeed:7.5, monkFallDiv:1.15,          // runner falls 1.15x faster than monks
-  monkSpeedMul:0.5,                          // ¬ß7 constant half speed
+  monkSpeedMul:0.5,                          // \u00a77 constant half speed
   tarMul:0.45,
-  digTime:0.5, holeOpen:10.0, holeClose:1.0, // ¬ß6
+  digTime:0.5, holeOpen:10.0, holeClose:1.0, // \u00a76
   monkStunMin:3, monkStunMax:7, monkRespawn:3,
   monkGoldPickup:0.4, monkCarryMin:5, monkCarryMax:12,
   bombFuse:2.0, bombRadius:2,
   drillPerCell:1.0, rubbleLife:9.0, rubbleSwing:1.0,
   gasCloud:6.0, gasDaze:2.0, snareSetup:1.5,
   teleFlash:1.0, darkRadius:3,
-  killBox:0.5,                               // centers within 0.5 tile (¬ß17)
+  killBox:0.5,                               // centers within 0.5 tile (\u00a717)
   startLives:5,
 };
 
@@ -108,7 +108,7 @@ addEventListener('keydown',e=>{
 addEventListener('keyup',e=>{keys[e.code]=false;});
 function tap(code){const v=pressed[code];pressed[code]=false;return !!v;}
 
-// pointer input ‚Äî one path for mouse AND touch (menus, editor, HUD buttons)
+// pointer input \u2014 one path for mouse AND touch (menus, editor, HUD buttons)
 const mouse={x:0,y:0,down:false,click:false};
 function ptrPos(e){
   const r=cv.getBoundingClientRect();
@@ -121,17 +121,17 @@ addEventListener('pointercancel',()=>{mouse.down=false;});
 
 // ---------------- on-screen touch controls (auto-shown on coarse-pointer devices)
 const TOUCH_BTNS=[
-  {id:'L',    label:'‚óÄ',  code:'ArrowLeft'},
-  {id:'R',    label:'‚ñ∂',  code:'ArrowRight'},
-  {id:'U',    label:'‚ñ≤',  code:'ArrowUp'},
-  {id:'D',    label:'‚ñº',  code:'ArrowDown'},
-  {id:'DL',   label:'‚üãDIG',code:'KeyZ'},
-  {id:'DR',   label:'DIG‚üç',code:'KeyX'},
+  {id:'L',    label:'\u25c0',  code:'ArrowLeft'},
+  {id:'R',    label:'\u25b6',  code:'ArrowRight'},
+  {id:'U',    label:'\u25b2',  code:'ArrowUp'},
+  {id:'D',    label:'\u25bc',  code:'ArrowDown'},
+  {id:'DL',   label:'\u27cbDIG',code:'KeyZ'},
+  {id:'DR',   label:'DIG\u27cd',code:'KeyX'},
   {id:'TOOL', label:'TOOL',code:'KeyA'},
   {id:'USE',  label:'USE', code:'KeyS'},
   {id:'BOMB', label:'BOMB',code:'KeyD'},
   {id:'PAUSE',label:'II',  code:'KeyP'},
-  {id:'MENU', label:'‚ò∞',  code:'Escape'},
+  {id:'MENU', label:'\u2630',  code:'Escape'},
 ];
 const touchEls={};
 function buildTouchUI(){
@@ -254,7 +254,7 @@ const MUSIC={ // [key root Hz, tempo bpm, beats/bar, scale intervals]
     [116.5,108,4,[0,3,7,10,12]], // crystal
     [87.3,84,4,[0,2,3,7,10]],    // ice
     [98.0,100,4,[0,3,5,6,7]],    // fossil
-    [110.0,116,5,[0,3,5,7,10]],  // lava ‚Äî 5/4!
+    [110.0,116,5,[0,3,5,7,10]],  // lava \u2014 5/4!
     [123.5,92,4,[0,2,5,7,11]],   // phosphor
     [82.4,72,4,[0,1,5,7,8]],     // shadow
     [110.0,120,4,[0,3,5,7,10]],  // metro
@@ -300,7 +300,7 @@ function startMusic(world){
 }
 function stopMusic(){if(musTimer){clearInterval(musTimer);musTimer=null;}musWorld=-1;}
 
-// ------------------------------------------------ world palettes (¬ß11)
+// ------------------------------------------------ world palettes (\u00a711)
 const WORLDS=[
  {name:"Moss Caverns",      code:'MOSS', bgA:'#0b2a10',bgB:'#123a16',motif:'vines',
   turf:'#4f9c33',turfHi:'#7cc44f',turfLo:'#2e6b1d',rock:'#5a6b52',rockHi:'#7d8f73',lad:'#9aa4a8',bar:'#b0b8ba',tar:'#c4762a'},
@@ -647,7 +647,7 @@ class LevelState{
         else if(ch==='J')this.jakeStart=[x,y];
         else if(ch==='W')this.wesStart=[x,y];
         else if(ch==='M')this.monkStarts.push([x,y]);
-        else if(ch==='A'){t=T_TELIN;this.teleIn['A']=[x,y];}   // (only pair 'A'/'a' ‚Äî 'B'/'b'/'C'/'c' are bomb/boss items)
+        else if(ch==='A'){t=T_TELIN;this.teleIn['A']=[x,y];}   // (only pair 'A'/'a' \u2014 'B'/'b'/'C'/'c' are bomb/boss items)
         else if(ch==='a'){t=T_TELOUT;this.teleOut['A']=[x,y];}
         if(t===T_EXIT){this.exitPos=[x,y];t=T_EMPTY;}
         if(t===T_MONKDOOR)this.monkDoors.push([x,y]);
@@ -682,7 +682,7 @@ class LevelState{
     const bx=x, by=y+1, t=this.t(bx,by);
     if(this.rubbleAt(bx,by))return true;
     if(t===T_TURF&&!this.openHole(bx,by))return true;
-    if(t===T_TRAP)return isMonk;                    // monks walk across, runner falls through (¬ß3.4)
+    if(t===T_TRAP)return isMonk;                    // monks walk across, runner falls through (\u00a73.4)
     if(t===T_BEDROCK||t===T_TAR)return true;
     if(t===T_DOOR_O||t===T_DOOR_G||t===T_DOOR_R)return true;
     if(t===T_LADDER)return true;
@@ -1044,7 +1044,7 @@ class Monk{
     // gassed?
     for(const c of L.gasClouds){
       if(c.x!==this.cx()||c.y!==this.cy())continue;
-      if(this.state==='snared'){ // gas frees snared monks (¬ß8)
+      if(this.state==='snared'){ // gas frees snared monks (\u00a78)
         L.snares=L.snares.filter(s=>s.monk!==this);
         this.state='normal'; this.dazeT=CFG.gasDaze;
         L.gasClouds=L.gasClouds.filter(cc=>cc!==c); break;
@@ -1067,7 +1067,7 @@ class Monk{
         this.stT+=dt;
         if(this.permTrapped)return;
         if(this.stT>=this.stunT){
-          // climb out ‚Äî but not toward the side where he sees the runner
+          // climb out \u2014 but not toward the side where he sees the runner
           this.state='climb'; this.stT=0;
         }
         return;}
@@ -1110,7 +1110,7 @@ class Monk{
       this.state='fall';
       this.x+=(x-this.x)*Math.min(1,dt*12);
       this.y+=CFG.fallSpeed/CFG.monkFallDiv*dt;
-      // gold pickup even while falling? no ‚Äî only walking
+      // gold pickup even while falling? no \u2014 only walking
       if(this.y>=ROWS-1){this.y=ROWS-1;}
       return;
     }
@@ -1149,7 +1149,7 @@ class Monk{
       }else return; // wait in queue
     }
 
-    // ---- decide direction (1983 bestMove) ‚Äî re-evaluate near cell centers
+    // ---- decide direction (1983 bestMove) \u2014 re-evaluate near cell centers
     // (no position snap here: the per-tick step is smaller than the centering
     // epsilon, so snapping would pin the monk to the center forever)
     if(Math.abs(this.x-x)<0.08&&Math.abs(this.y-y)<0.08){
@@ -1176,12 +1176,12 @@ class Monk{
       }
     }
   }
-  // --- 1983 pathfinding (scanFloor family, ¬ß7)
+  // --- 1983 pathfinding (scanFloor family, \u00a77)
   bestMove(){
     const L=this.L, r=game.nearestRunner(this);
     if(!r)return null;
     const gx=this.cx(), gy=this.cy(), rx=r.cx(), ry=r.cy();
-    // same-row chase ‚Äî an open hole below is still "traversable": the monk
+    // same-row chase \u2014 an open hole below is still "traversable": the monk
     // blunders in and gets trapped, which is the classic trapping mechanic
     if(gy===ry&&!r.falling()){
       let ok=true; const step=rx>gx?1:-1;
@@ -1217,7 +1217,7 @@ class Monk{
       }
       return y0===ry?Math.abs(gx-x0):(y0>ry?(y0-ry)+200:(ry-y0)+100);
     };
-    // own column ‚Äî scanUp needs a ladder that actually leads UP from here
+    // own column \u2014 scanUp needs a ladder that actually leads UP from here
     if(canFallAt(gx)||L.openHole(gx,gy+1))consider(scanDown(gx),'D');
     if(L.ladderAt(gx,gy)&&L.ladderAt(gx,gy-1))consider(scanUp(gx),'U');
     // floor extents
@@ -1357,7 +1357,7 @@ const game={
         if(t!==T_EMPTY){L.terr[y][x]=T_EMPTY;}
         delete L.holes[L.key(x,y)]; delete L.rubble[L.key(x,y)]; delete L.goo[L.key(x,y)];
         const it=L.items[y][x];
-        if(it&&!(it>=I_G1&&it<=I_G4))L.items[y][x]=I_NONE;   // treasure survives (¬ß8)
+        if(it&&!(it>=I_G1&&it<=I_G4))L.items[y][x]=I_NONE;   // treasure survives (\u00a78)
         if(L.hiddenIt[y][x]&&!(L.hiddenIt[y][x]>=I_G1&&L.hiddenIt[y][x]<=I_G4)){
           if(L.hiddenIt[y][x]>=I_G1&&L.hiddenIt[y][x]<=I_G4)L.items[y][x]=L.hiddenIt[y][x];
           L.hiddenIt[y][x]=I_NONE;
@@ -1376,7 +1376,7 @@ const game={
       for(const b of L.bombs){
         if(b.exploded)continue;
         if(Math.round(b.x)===x&&Math.round(b.y)===y&&!(b.x===bx&&b.y===by)){
-          if(!boss&&b.fuse>0.06)b.fuse=0.06;             // chains: small‚Üísmall, small‚Üíboss
+          if(!boss&&b.fuse>0.06)b.fuse=0.06;             // chains: small\u2192small, small\u2192boss
         }
       }
     }
@@ -1394,7 +1394,7 @@ const game={
   levelComplete(runner){
     SFX.jingleWin(); stopMusic();
     if(this.fromEditor){this.fromEditor=false;this.playingCustom=false;ED.enter();return;}
-    for(const r of this.runners)r.lives++;              // +1 life per level (¬ß9)
+    for(const r of this.runners)r.lives++;              // +1 life per level (\u00a79)
     const defs=this.levels(), cur=defs[this.levelIdx], next=defs[this.levelIdx+1];
     saveProgress(this.levelIdx+1);
     if(!next){this.state='finale';return;}
@@ -1425,7 +1425,7 @@ const game={
       if(b.fuse<=0&&!b.exploded){b.exploded=true;this.explode(Math.round(b.x),Math.round(b.y),b.boss);}
     }
     L.bombs=L.bombs.filter(b=>!b.exploded);
-    // monk contact kills (¬ß7)
+    // monk contact kills (\u00a77)
     for(const m of this.monks){
       if(m.state!=='normal'&&m.state!=='climb')continue;
       for(const r of this.runners){
@@ -2123,7 +2123,7 @@ function drawTitle(g,t){
   g.font='italic 22px Georgia,serif';
   g.fillStyle='#f4f0e4';g.fillText('The Legend Returns',SCR_W/2,176);
   g.font='10px monospace';g.fillStyle='rgba(60,50,40,0.9)';
-  g.fillText('A FAN RECREATION OF THE 1994 PRESAGE / SIERRA CLASSIC ‚Äî PERSONAL USE ONLY',SCR_W/2,206);
+  g.fillText('A FAN RECREATION OF THE 1994 PRESAGE / SIERRA CLASSIC \u2014 PERSONAL USE ONLY',SCR_W/2,206);
   // buttons
   const rects=menuButtonRects();
   rects.forEach((r,i)=>{
@@ -2136,8 +2136,8 @@ function drawTitle(g,t){
   });
   const sv=loadProgress();
   g.font='11px monospace';g.fillStyle='#4a4034';
-  g.fillText(sv&&sv.level>0?`CONTINUE: press C ‚Äî saved at level ${String(sv.level+1).padStart(3,'0')}`:'',SCR_W/2,380);
-  g.fillText('ARROWS + ENTER, OR CLICK  ¬∑  IN GAME: Z/X DIG ¬∑ A TOOL ¬∑ S USE ¬∑ D BOMB',SCR_W/2,394);
+  g.fillText(sv&&sv.level>0?`CONTINUE: press C \u2014 saved at level ${String(sv.level+1).padStart(3,'0')}`:'',SCR_W/2,380);
+  g.fillText('ARROWS + ENTER, OR CLICK  \u00b7  IN GAME: Z/X DIG \u00b7 A TOOL \u00b7 S USE \u00b7 D BOMB',SCR_W/2,394);
   g.textAlign='left';
 }
 function updateMenu(){
@@ -2173,9 +2173,9 @@ function drawPicker(g,t){
   g.fillText('PLAY FROM LEVEL',SCR_W/2,46);
   const def=LEVELS[game.pickerSel];
   g.font='bold 14px monospace';g.fillStyle='#f0e8d8';
-  g.fillText(`${String(game.pickerSel+1).padStart(3,'0')}  ‚Äî  ${def.title}`,SCR_W/2,72);
+  g.fillText(`${String(game.pickerSel+1).padStart(3,'0')}  \u2014  ${def.title}`,SCR_W/2,72);
   g.font='12px monospace';g.fillStyle='#b8a878';
-  g.fillText('WORLD '+(def.world+1)+': '+WORLDS[def.world].name.toUpperCase()+(def.dark?'  ‚òæ DARK':''),SCR_W/2,90);
+  g.fillText('WORLD '+(def.world+1)+': '+WORLDS[def.world].name.toUpperCase()+(def.dark?'  \u263e DARK':''),SCR_W/2,90);
   // monochrome minimap
   const mmW=COLS*8, mmH=ROWS*8, mx=SCR_W/2-mmW/2, my=104;
   g.fillStyle='#101418';g.fillRect(mx-4,my-4,mmW+8,mmH+8);
@@ -2191,7 +2191,7 @@ function drawPicker(g,t){
     if(c){g.fillStyle=c;g.fillRect(mx+x*8,my+y*8,7,7);}
   }
   g.font='12px monospace';g.fillStyle='#cabfa8';
-  g.fillText('‚óÑ ‚ñ∫ CHOOSE   ¬∑   ENTER: PLAY (score starts at 0 with an X)   ¬∑   ESC: BACK',SCR_W/2,SCR_H-40);
+  g.fillText('\u25c4 \u25ba CHOOSE   \u00b7   ENTER: PLAY (score starts at 0 with an X)   \u00b7   ESC: BACK',SCR_W/2,SCR_H-40);
   g.textAlign='left';
   if(tap('ArrowLeft'))game.pickerSel=(game.pickerSel+LEVELS.length-1)%LEVELS.length;
   if(tap('ArrowRight'))game.pickerSel=(game.pickerSel+1)%LEVELS.length;
@@ -2237,21 +2237,21 @@ function drawHelp(g){
   g.fillText('HOW TO RUN THE LODE',SCR_W/2,52);
   g.textAlign='left';g.font='11px monospace';g.fillStyle='#e8e0d0';
   const lines=[
-    'Collect EVERY treasure ‚Äî the exit door appears. Escape through it.',
+    'Collect EVERY treasure \u2014 the exit door appears. Escape through it.',
     'Your laser-blaster digs holes diagonally below you (Z left / X right).',
     'Mad monks die in closed holes but reincarnate. They can carry gold.',
     'Walk on trapped monks. Falling monks are harmless. Touching one is not.',
     '',
-    'MOVE arrows ¬∑ DIG Z/X ¬∑ TOOL pick/drop A ¬∑ USE tool S ¬∑ BOMB D',
-    'PAUSE P ¬∑ RESTART R ¬∑ SUICIDE K (or click the skull) ¬∑ MENU Esc',
-    'MUSIC M ¬∑ SFX N ¬∑ SPEED -/+/0 ¬∑ CLASSIC NUMPAD SCHEME: see Options',
+    'MOVE arrows \u00b7 DIG Z/X \u00b7 TOOL pick/drop A \u00b7 USE tool S \u00b7 BOMB D',
+    'PAUSE P \u00b7 RESTART R \u00b7 SUICIDE K (or click the skull) \u00b7 MENU Esc',
+    'MUSIC M \u00b7 SFX N \u00b7 SPEED -/+/0 \u00b7 CLASSIC NUMPAD SCHEME: see Options',
     '',
-    'TOOLS (one at a time): bombs(4) ¬∑ slime ¬∑ snare ¬∑ jackhammer',
-    'gas ¬∑ pickaxe ¬∑ boss bomb.  Hideouts: press ‚Üë inside, ‚Üì to exit.',
+    'TOOLS (one at a time): bombs(4) \u00b7 slime \u00b7 snare \u00b7 jackhammer',
+    'gas \u00b7 pickaxe \u00b7 boss bomb.  Hideouts: press \u2191 inside, \u2193 to exit.',
     'Beware: trap-door turf, tar, decoy keys, one-way transporters,',
     'the dark Shadowlands... and never step on your own snare.',
     '',
-    'HEAD-TO-HEAD: P1 arrows + ,/. dig + ;/\'// tools ‚Äî P2 QWE/ASD/ZXC.',
+    'HEAD-TO-HEAD: P1 arrows + ,/. dig + ;/\'// tools \u2014 P2 QWE/ASD/ZXC.',
   ];
   lines.forEach((s,i)=>g.fillText(s,64,84+i*19));
   g.textAlign='center';g.fillStyle='#b8a878';g.fillText('ESC: BACK',SCR_W/2,SCR_H-40);
@@ -2268,7 +2268,7 @@ function drawInter(g,t){
   g.textAlign='center';
   const slide=Math.min(1,game.interT/0.8);
   g.font='bold 13px monospace';g.fillStyle='#b8a878';
-  g.fillText('‚Äî ENTERING ‚Äî',SCR_W/2,120);
+  g.fillText('\u2014 ENTERING \u2014',SCR_W/2,120);
   g.font='bold 30px Georgia,serif';
   g.fillStyle='#ffe9a0';g.fillText('WORLD '+(w+1)+': '+WORLDS[w].name.toUpperCase(),SCR_W/2,120+slide*40);
   g.font='bold 13px monospace';g.fillStyle='#e8e0d0';
@@ -2299,7 +2299,7 @@ function drawGameOver(g,t){
   g.font='bold 14px monospace';g.fillStyle='#f0e8d8';
   g.fillText('SCORE: '+String(game.runners[0].score).padStart(7,'0'),SCR_W/2,200);
   g.font='12px monospace';g.fillStyle='#b8a878';
-  g.fillText('ENTER: CONTINUE (5 lives, score kept) ¬∑ ESC: MENU',SCR_W/2,240);
+  g.fillText('ENTER: CONTINUE (5 lives, score kept) \u00b7 ESC: MENU',SCR_W/2,240);
   g.textAlign='left';
   if(tap('Enter')){
     const sc=game.runners.map(r=>r.score);
@@ -2312,7 +2312,7 @@ function drawFinale(g,t){
   g.drawImage(stoneBg,0,0);
   g.fillStyle='rgba(20,16,12,0.82)';g.fillRect(0,0,SCR_W,SCR_H);
   g.textAlign='center';
-  g.font='bold 15px monospace';g.fillStyle='#b8a878';g.fillText('‚Äî THE FINAL RUN ‚Äî',SCR_W/2,120);
+  g.font='bold 15px monospace';g.fillStyle='#b8a878';g.fillText('\u2014 THE FINAL RUN \u2014',SCR_W/2,120);
   g.font='bold 38px Georgia,serif';
   const grd=g.createLinearGradient(0,140,0,180);
   grd.addColorStop(0,'#ffe9a0');grd.addColorStop(1,'#8a6216');
@@ -2412,8 +2412,8 @@ const ED={
     }
     // status line
     g.font='10px monospace';g.textAlign='center';g.fillStyle='#cabfa8';
-    g.fillText(`GAME GENERATOR ‚Äî "${this.title}" ¬∑ WORLD ${this.world+1} ${WORLDS[this.world].name.toUpperCase()}${this.dark?' ‚òæ':''} ¬∑ brush: ${this.PALN[this.sel]||this.sel}`,SCR_W/2,PF_Y+10);
-    g.fillText('T TEST ¬∑ V SAVE ¬∑ L LOAD ¬∑ W WORLD ¬∑ K DARK ¬∑ E TITLE ¬∑ X EXPORT ¬∑ I IMPORT ¬∑ ESC MENU'+(this.savedMsg>0?'  ‚úî SAVED':''),SCR_W/2,PF_Y+PF_H-4);
+    g.fillText(`GAME GENERATOR \u2014 "${this.title}" \u00b7 WORLD ${this.world+1} ${WORLDS[this.world].name.toUpperCase()}${this.dark?' \u263e':''} \u00b7 brush: ${this.PALN[this.sel]||this.sel}`,SCR_W/2,PF_Y+10);
+    g.fillText('T TEST \u00b7 V SAVE \u00b7 L LOAD \u00b7 W WORLD \u00b7 K DARK \u00b7 E TITLE \u00b7 X EXPORT \u00b7 I IMPORT \u00b7 ESC MENU'+(this.savedMsg>0?'  \u2714 SAVED':''),SCR_W/2,PF_Y+PF_H-4);
     g.textAlign='left';
     if(this.savedMsg>0)this.savedMsg-=TICK;
     // keys
