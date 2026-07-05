@@ -158,19 +158,37 @@ function buildTouchUI(){
   // fullscreen toggle: hides the browser address bar on phones
   const fs=document.createElement('div');
   fs.className='tbtn'; fs.textContent='\u26f6';
-  fs.addEventListener('pointerdown',e=>{
-    e.preventDefault(); Audio_unlock();
+  fs.addEventListener('pointerdown',e=>{e.preventDefault();Audio_unlock();});
+  fs.addEventListener('pointerup',e=>{
+    e.preventDefault();
     const d=document, el=d.documentElement;
+    const toast=()=>fsToast();
     try{
       if(d.fullscreenElement||d.webkitFullscreenElement){
         (d.exitFullscreen||d.webkitExitFullscreen).call(d);
-      }else{
-        const req=el.requestFullscreen||el.webkitRequestFullscreen;
-        if(req)req.call(el,{navigationUI:'hide'});
-      }
-    }catch(_){}
+      }else if(el.requestFullscreen){
+        const p=el.requestFullscreen({navigationUI:'hide'});
+        if(p&&p.catch)p.catch(toast);
+      }else if(el.webkitRequestFullscreen){
+        el.webkitRequestFullscreen();
+        setTimeout(()=>{if(!(d.fullscreenElement||d.webkitFullscreenElement))toast();},450);
+      }else toast();
+    }catch(_){toast();}
   });
   host.appendChild(fs); touchEls.FS=fs;
+}
+function fsToast(){
+  let el=document.getElementById('fstoast');
+  if(!el){
+    el=document.createElement('div'); el.id='fstoast';
+    el.style.cssText='position:fixed;left:50%;top:46px;transform:translateX(-50%);z-index:9;'+
+      'background:rgba(20,18,16,.92);color:#ffe9a0;border:1px solid #8a7c62;border-radius:10px;'+
+      'padding:10px 14px;font:12px monospace;max-width:86vw;text-align:center;pointer-events:none';
+    document.body.appendChild(el);
+  }
+  el.textContent='Fullscreen is blocked in this browser. For true fullscreen: Share button \u2192 Add to Home Screen, then play from the icon.';
+  el.style.display='block';
+  clearTimeout(el._t); el._t=setTimeout(()=>{el.style.display='none';},5000);
 }
 function layoutTouchUI(portrait){
   if(!IS_TOUCH||!touchEls.L)return;
@@ -201,6 +219,15 @@ function layoutTouchUI(portrait){
   set('MENU', pad,4,44,32,15);
   set('FS',   W/2-22,4,44,32,16);
 }
+// iOS ignores user-scalable=no: kill double-tap zoom and pinch-zoom explicitly
+document.addEventListener('gesturestart',e=>e.preventDefault());
+document.addEventListener('gesturechange',e=>e.preventDefault());
+let _lastTouchEnd=0;
+document.addEventListener('touchend',e=>{
+  if(e.timeStamp-_lastTouchEnd<350)e.preventDefault();   // double-tap
+  _lastTouchEnd=e.timeStamp;
+},{passive:false});
+document.addEventListener('dblclick',e=>e.preventDefault());
 document.addEventListener('fullscreenchange',fitScreen);
 document.addEventListener('webkitfullscreenchange',fitScreen);
 buildTouchUI(); fitScreen();
