@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Lode Runner: The Legend Returns &#8212; Fan Recreation</title>
+<title>Tunnel Bandit &#8212; Retro Treasure Chase</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <style>
   html,body{margin:0;padding:0;background:#000;height:100%;overflow:hidden;touch-action:none;overscroll-behavior:none}
@@ -23,8 +23,8 @@
 <script>
 'use strict';
 /* =====================================================================
-   LODE RUNNER: THE LEGEND RETURNS \u2014 faithful fan recreation (1994 \u2192 HTML5)
-   Personal-use homage. All art & audio synthesized from scratch.
+   TUNNEL BANDIT \u2014 a retro digging adventure
+   All art, audio, and levels are original creations.
    Spec: PROMPT.md (adjudicated defaults are final).
    ===================================================================== */
 
@@ -302,25 +302,25 @@ function stopMusic(){if(musTimer){clearInterval(musTimer);musTimer=null;}musWorl
 
 // ------------------------------------------------ world palettes (\u00a711)
 const WORLDS=[
- {name:"Moss Caverns",      code:'MOSS', bgA:'#0b2a10',bgB:'#123a16',motif:'vines',
+ {name:"The Green Deep",      code:'MOSS', bgA:'#0b2a10',bgB:'#123a16',motif:'vines',
   turf:'#4f9c33',turfHi:'#7cc44f',turfLo:'#2e6b1d',rock:'#5a6b52',rockHi:'#7d8f73',lad:'#9aa4a8',bar:'#b0b8ba',tar:'#c4762a'},
- {name:"Fungus Delvings",   code:'FUNG', bgA:'#3a1607',bgB:'#5b2a0d',motif:'tendrils',
+ {name:"Spore Warrens",   code:'FUNG', bgA:'#3a1607',bgB:'#5b2a0d',motif:'tendrils',
   turf:'#a05a24',turfHi:'#c98341',turfLo:'#6e3a12',rock:'#6b4a33',rockHi:'#8f6a4d',lad:'#c9a06a',bar:'#d1b087',tar:'#7a4b16'},
- {name:"Lost City of Ur",   code:'ANCI', bgA:'#3c2a20',bgB:'#59402f',motif:'ruins',
+ {name:"Sunken Ruins",   code:'ANCI', bgA:'#3c2a20',bgB:'#59402f',motif:'ruins',
   turf:'#8a4a33',turfHi:'#b06a4a',turfLo:'#5e3020',rock:'#7a6a58',rockHi:'#9c8b76',lad:'#d8d0c0',bar:'#e0d8c8',tar:'#5a3a1a'},
- {name:"The Crystal Hoard", code:'CRYS', bgA:'#3a0a14',bgB:'#5e1020',motif:'crystals',
+ {name:"Garnet Vaults", code:'CRYS', bgA:'#3a0a14',bgB:'#5e1020',motif:'crystals',
   turf:'#b06a8c',turfHi:'#d891b4',turfLo:'#7c4260',rock:'#6a4a5c',rockHi:'#8c667c',lad:'#c8ccd8',bar:'#d8dce8',tar:'#7c2a3a'},
- {name:"Winter's Dungeon",  code:'ICEW', bgA:'#12283e',bgB:'#1e4260',motif:'ice',
+ {name:"The Frostworks",  code:'ICEW', bgA:'#12283e',bgB:'#1e4260',motif:'ice',
   turf:'#a8cfe0',turfHi:'#dceef8',turfLo:'#6d9cb8',rock:'#4a6478',rockHi:'#66889e',lad:'#3c5468',bar:'#4c6478',tar:'#3a6a8a'},
- {name:"Skeleton's Keep",   code:'FOSS', bgA:'#40200a',bgB:'#603612',motif:'bones',
+ {name:"Bonefield Strata",   code:'FOSS', bgA:'#40200a',bgB:'#603612',motif:'bones',
   turf:'#c8a05c',turfHi:'#e4c488',turfLo:'#8c6c38',rock:'#7c5c34',rockHi:'#a07c4c',lad:'#b09468',bar:'#c0a478',tar:'#6a4218'},
- {name:"Inferno's Playground",code:'LAVA',bgA:'#4a0e02',bgB:'#801c04',motif:'lava',
+ {name:"The Magma Pits",code:'LAVA',bgA:'#4a0e02',bgB:'#801c04',motif:'lava',
   turf:'#9c3a1c',turfHi:'#d0602c',turfLo:'#661f0d',rock:'#3a2622',rockHi:'#584038',lad:'#8a7060',bar:'#9c8272',tar:'#c05a10'},
- {name:"Shimmering Caverns",code:'PHOS', bgA:'#2a1040',bgB:'#421c60',motif:'phosphor',
+ {name:"Glowstone Grotto",code:'PHOS', bgA:'#2a1040',bgB:'#421c60',motif:'phosphor',
   turf:'#8c4ab0',turfHi:'#b070d8',turfLo:'#5c2c78',rock:'#4a3a60',rockHi:'#665484',lad:'#7cc8a0',bar:'#8cd8b0',tar:'#3a7a4a'},
- {name:"The Shadowlands",   code:'DARK', bgA:'#04060e',bgB:'#0a1020',motif:'shadow',
+ {name:"The Lightless Reach",   code:'DARK', bgA:'#04060e',bgB:'#0a1020',motif:'shadow',
   turf:'#2a3a5c',turfHi:'#42557e',turfLo:'#182238',rock:'#20283a',rockHi:'#38445c',lad:'#4a5a78',bar:'#5a6a88',tar:'#1c3a4a'},
- {name:"Meltdown Metropolis",code:'INDU',bgA:'#2e2418',bgB:'#453626',motif:'gears',
+ {name:"The Iron Foundry",code:'INDU',bgA:'#2e2418',bgB:'#453626',motif:'gears',
   turf:'#8c8c94',turfHi:'#b4b4bc',turfLo:'#5c5c64',rock:'#4c4c54',rockHi:'#6c6c74',lad:'#a8a8b0',bar:'#b8b8c0',tar:'#6a5a2a'},
 ];
 
@@ -1648,7 +1648,7 @@ function loadProgress(){
 // A/B/C transporter in  a/b/c transporter out  J jake  W wes  M monk
 // items: 1-4 gold  b bomb  B boss bomb  s slime  n snare  j jackhammer  f gas  p pickaxe
 const LEVELS=[
-{world:0,title:"TAKE THE GOLD!",map:[
+{world:0,title:"GRAB THE GOODS!",map:[
 "............................",
 "............................",
 "..........................X.",
@@ -1988,7 +1988,7 @@ const LEVELS=[
 ".J.H......M....M....M...H...",
 "############################",
 "............................"]},
-{world:9,title:"THE FINAL RUN",hidden:[[13,7,"4"],[14,7,"4"]],map:[
+{world:9,title:"THE LAST HAUL",hidden:[[13,7,"4"],[14,7,"4"]],map:[
 "............................",
 ".....4..............4......X",
 "..###H######..######H####.#H",
@@ -2118,12 +2118,12 @@ function drawTitle(g,t){
   g.font='bold 46px Georgia,serif';
   const grd=g.createLinearGradient(0,110,0,150);
   grd.addColorStop(0,'#ffe9a0');grd.addColorStop(0.5,'#d8a83c');grd.addColorStop(1,'#8a6216');
-  g.fillStyle='#000';g.fillText('LODE RUNNER',SCR_W/2+3,146+3);
-  g.fillStyle=grd;g.fillText('LODE RUNNER',SCR_W/2,146);
+  g.fillStyle='#000';g.fillText('TUNNEL BANDIT',SCR_W/2+3,146+3);
+  g.fillStyle=grd;g.fillText('TUNNEL BANDIT',SCR_W/2,146);
   g.font='italic 22px Georgia,serif';
-  g.fillStyle='#f4f0e4';g.fillText('The Legend Returns',SCR_W/2,176);
+  g.fillStyle='#f4f0e4';g.fillText('Depths of the Miser King',SCR_W/2,176);
   g.font='10px monospace';g.fillStyle='rgba(60,50,40,0.9)';
-  g.fillText('A FAN RECREATION OF THE 1994 PRESAGE / SIERRA CLASSIC \u2014 PERSONAL USE ONLY',SCR_W/2,206);
+  g.fillText('AN ORIGINAL RETRO DIGGING ADVENTURE',SCR_W/2,206);
   // buttons
   const rects=menuButtonRects();
   rects.forEach((r,i)=>{
@@ -2234,12 +2234,12 @@ function drawHelp(g){
   g.fillStyle='rgba(30,26,22,0.9)';g.fillRect(40,26,SCR_W-80,SCR_H-52);
   g.strokeStyle='#6a6154';g.strokeRect(41,27,SCR_W-82,SCR_H-54);
   g.textAlign='center';g.font='bold 18px Georgia,serif';g.fillStyle='#ffe9a0';
-  g.fillText('HOW TO RUN THE LODE',SCR_W/2,52);
+  g.fillText('HOW TO RAID THE VAULTS',SCR_W/2,52);
   g.textAlign='left';g.font='11px monospace';g.fillStyle='#e8e0d0';
   const lines=[
     'Collect EVERY treasure \u2014 the exit door appears. Escape through it.',
     'Your laser-blaster digs holes diagonally below you (Z left / X right).',
-    'Mad monks die in closed holes but reincarnate. They can carry gold.',
+    'Vault wraiths die in closed holes but reincarnate. They can carry gold.',
     'Walk on trapped monks. Falling monks are harmless. Touching one is not.',
     '',
     'MOVE arrows \u00b7 DIG Z/X \u00b7 TOOL pick/drop A \u00b7 USE tool S \u00b7 BOMB D',
@@ -2249,7 +2249,7 @@ function drawHelp(g){
     'TOOLS (one at a time): bombs(4) \u00b7 slime \u00b7 snare \u00b7 jackhammer',
     'gas \u00b7 pickaxe \u00b7 boss bomb.  Hideouts: press \u2191 inside, \u2193 to exit.',
     'Beware: trap-door turf, tar, decoy keys, one-way transporters,',
-    'the dark Shadowlands... and never step on your own snare.',
+    'the lightless depths... and never step on your own snare.',
     '',
     'HEAD-TO-HEAD: P1 arrows + ,/. dig + ;/\'// tools \u2014 P2 QWE/ASD/ZXC.',
   ];
@@ -2259,7 +2259,7 @@ function drawHelp(g){
   if(tap('Escape'))game.state='menu';
 }
 const TOOL_INTRO=[null,I_BOMB,null,I_SLIME,I_SNARE,I_JACK,I_GAS,I_PICK,null,I_BOSS];
-const TOOL_INTRO_NAME=['THE LASER BLASTER','SMALL BOMBS','THE HIDEOUT','THE SLIME BUCKET','THE MAD MONK SNARE','THE JACKHAMMER','BEFUDDLEMENT GAS','THE PICKAXE','DARKNESS FALLS','TRANSPORTERS & THE BOSS BOMB'];
+const TOOL_INTRO_NAME=['THE LASER BLASTER','SMALL BOMBS','THE HIDEOUT','THE SLIME BUCKET','THE WRAITH SNARE','THE JACKHAMMER','BEFUDDLEMENT GAS','THE PICKAXE','DARKNESS FALLS','TRANSPORTERS & THE BOSS BOMB'];
 function drawInter(g,t){
   const w=game.interWorld;
   g.drawImage(backdrops[w],PF_X,PF_Y);
@@ -2312,16 +2312,16 @@ function drawFinale(g,t){
   g.drawImage(stoneBg,0,0);
   g.fillStyle='rgba(20,16,12,0.82)';g.fillRect(0,0,SCR_W,SCR_H);
   g.textAlign='center';
-  g.font='bold 15px monospace';g.fillStyle='#b8a878';g.fillText('\u2014 THE FINAL RUN \u2014',SCR_W/2,120);
+  g.font='bold 15px monospace';g.fillStyle='#b8a878';g.fillText('\u2014 THE LAST HAUL \u2014',SCR_W/2,120);
   g.font='bold 38px Georgia,serif';
   const grd=g.createLinearGradient(0,140,0,180);
   grd.addColorStop(0,'#ffe9a0');grd.addColorStop(1,'#8a6216');
-  g.fillStyle=grd;g.fillText('JAKE PERIL ESCAPES!',SCR_W/2,170);
+  g.fillStyle=grd;g.fillText('COLE CARVER ESCAPES!',SCR_W/2,170);
   g.font='14px monospace';g.fillStyle='#f0e8d8';
-  g.fillText('The treasuries of the Evil Empire lie empty.',SCR_W/2,210);
+  g.fillText('The vaults of the Miser King lie empty.',SCR_W/2,210);
   g.fillText('SCORE: '+String(game.runners[0]?game.runners[0].score:0).padStart(7,'0')
     +'   LIVES LEFT: '+(game.runners[0]?Math.max(0,game.runners[0].lives):0),SCR_W/2,244);
-  // celebrating Jake + fleeing monks
+  // celebrating hero + fleeing wraiths
   drawRunner(g,SCR_W/2-11,280,Math.floor(t*4)%2?'run1':'stand',1,'#e8e8e8',t);
   drawMonk(g,SCR_W/2-90+Math.sin(t)*4,284,'run1',-1,t,false);
   drawMonk(g,SCR_W/2+70-Math.sin(t)*4,284,'run2',1,t,false);
@@ -2347,8 +2347,8 @@ const ED={
   PALN:{'#':'turf','@':'bedrock','~':'tar','!':'trapdoor','H':'ladder','h':'exit ladder','=':'bar',
     '1':'gold 1','2':'gold 2','3':'gold 3','4':'gold 4','o':'key','g':'key','r':'key',
     'O':'door','G':'door','R':'door','A':'transporter in','a':'transporter out','b':'small bomb','B':'boss bomb',
-    'X':'exit','D':'monk door','U':'hideout','J':'Jake','W':'Wes',
-    'M':'monk','s':'slime','n':'snare','j':'jackhammer','f':'gas','p':'pickaxe','.':'erase'},
+    'X':'exit','D':'wraith gate','U':'hideout','J':'hero','W':'partner',
+    'M':'wraith','s':'slime','n':'snare','j':'jackhammer','f':'gas','p':'pickaxe','.':'erase'},
   enter(){
     game.state='editor';
     if(!this.grid)this.load()||this.blank();
@@ -2429,7 +2429,7 @@ const ED={
         this.grid=d.map.map(r=>{const a=r.split('').slice(0,COLS);while(a.length<COLS)a.push('.');return a;});}catch(e){alert('Bad JSON');}
     }
     if(tap('KeyT')){
-      if(!this.valid()){alert('A level needs: Jake (J), a mad monk (M), treasure (1-4), and an exit door (X).');return;}
+      if(!this.valid()){alert('A level needs: a hero (J), a wraith (M), treasure (1-4), and an exit door (X).');return;}
       this.save();
       game.customLevels=[this.toDef()];
       game.playingCustom=true; game.twoP=this.grid.flat().includes('W');
