@@ -1,6 +1,6 @@
-# Legend Runner
+# Tunnel Bandit
 
-A faithful browser recreation of the 1994 classic *Lode Runner: The Legend Returns* (fan project — all art, audio, and levels are original creations).
+A retro digging adventure — run the tunnels, grab the goods, trap the vault wraiths, and escape. All art, audio, code, and levels are original creations.
 
 **Play it:** https://joshlidev.github.io/legend-runner/
 
