@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <title>Tunnel Bandit &#8212; Retro Treasure Chase</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
   html,body{margin:0;padding:0;background:#000;height:100%;overflow:hidden;touch-action:none;overscroll-behavior:none}
   #wrap{display:flex;align-items:center;justify-content:center;height:100%}
@@ -152,6 +155,22 @@ function buildTouchUI(){
     el.addEventListener('pointercancel',release);
     host.appendChild(el); touchEls[b.id]=el;
   }
+  // fullscreen toggle: hides the browser address bar on phones
+  const fs=document.createElement('div');
+  fs.className='tbtn'; fs.textContent='\u26f6';
+  fs.addEventListener('pointerdown',e=>{
+    e.preventDefault(); Audio_unlock();
+    const d=document, el=d.documentElement;
+    try{
+      if(d.fullscreenElement||d.webkitFullscreenElement){
+        (d.exitFullscreen||d.webkitExitFullscreen).call(d);
+      }else{
+        const req=el.requestFullscreen||el.webkitRequestFullscreen;
+        if(req)req.call(el,{navigationUI:'hide'});
+      }
+    }catch(_){}
+  });
+  host.appendChild(fs); touchEls.FS=fs;
 }
 function layoutTouchUI(portrait){
   if(!IS_TOUCH||!touchEls.L)return;
@@ -180,7 +199,10 @@ function layoutTouchUI(portrait){
   // system (top corners)
   set('PAUSE',W-pad-44,4,44,32,13);
   set('MENU', pad,4,44,32,15);
+  set('FS',   W/2-22,4,44,32,16);
 }
+document.addEventListener('fullscreenchange',fitScreen);
+document.addEventListener('webkitfullscreenchange',fitScreen);
 buildTouchUI(); fitScreen();
 
 // ------------------------------------------------ audio engine (all synthesized)
